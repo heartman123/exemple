@@ -35,12 +35,5 @@ public class adminDao extends BaseDao {
         return adminRst;
     }
     
-//    public String ediPassword(admin ad,String newpassword) {
-//    	String retString ="ÐÞ¸ÄÊ§°Ü";
-//    	String sqlString ="UPDATE s_admin SET password = ? and password = ?";
-//    	PreparedStatement prst = conn.prepareStatement(sqlString);
-//    	
-//    	
-//    	return;
-//    }
+
     }

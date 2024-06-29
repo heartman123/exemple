@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -32,7 +33,7 @@ import javax.swing.UIManager;
 
 
 
-public class EditPasswordFrm extends JFrame {
+public class EditPasswordFrm extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField OldPasswordtextField;
@@ -70,7 +71,8 @@ public class EditPasswordFrm extends JFrame {
 //		 this.currentUser = currentUser;
 //		 currentUserLabel.setText(currentUser);
 //	        initComponents(); // 初始化界面组件
-
+           setClosable(true);
+           setIconifiable(true);
 		setTitle("\u4FEE\u6539\u5BC6\u7801\u754C\u9762");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -189,7 +191,7 @@ public class EditPasswordFrm extends JFrame {
 		 setVisible(true);
 		 
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		 setLocationRelativeTo(parentFrame);
+//		 setLocationRelativeTo(null);
 	
 	}
 

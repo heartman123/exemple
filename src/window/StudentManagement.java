@@ -1,6 +1,9 @@
 package window;
 
 import javax.swing.*;
+
+import model.StudentBaseInfo;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentManagement extends JFrame {
-    private List<Student> studentList;
+//    private List<student> studentList;
     private JTextArea studentTextArea;
     private JTextField searchField;
     private JButton searchButton;
@@ -21,9 +24,9 @@ public class StudentManagement extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        studentList = new ArrayList<>();
-        studentList.add(new Student("张三", "101", "男", 20));
-        studentList.add(new Student("李四", "102", "女", 21));
+//        studentList = new ArrayList<>();
+//        studentList.add(new Student("张三", "101", "男", 20));
+//        studentList.add(new Student("李四", "102", "女", 21));
 
         JPanel topPanel = new JPanel();
         searchField = new JTextField(20);
@@ -94,6 +97,9 @@ public class StudentManagement extends JFrame {
         }
         studentList = result;
         displayStudents();
+    	StudentBaseInfo Student = new StudentBaseInfo();
+    	Student.setName();
+    	
     }
 
     private void addStudent() {
@@ -121,32 +127,32 @@ public class StudentManagement extends JFrame {
     }
 }
 
-class Student {
-    private String name;
-    private String id;
-    private String gender;
-    private int age;
-
-    public Student(String name, String id, String gender, int age) {
-        this.name = name;
-        this.id = id;
-        this.gender = gender;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
+//class Student {
+//    private String name;
+//    private String id;
+//    private String gender;
+//    private int age;
+//
+//    public Student(String name, String id, String gender, int age) {
+//        this.name = name;
+//        this.id = id;
+//        this.gender = gender;
+//        this.age = age;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public String getGender() {
+//        return gender;
+//    }
+//
+//    public int getAge() {
+//        return age;
+//    }
 }

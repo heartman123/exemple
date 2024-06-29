@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Dao.TeacherDao;
 import Dao.adminDao;
+import model.Teacher;
 import model.UserType;
 import model.admin;
 import util.Dbutil;
@@ -41,7 +43,7 @@ public class LoginFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField adminName;
 	private JPasswordField adminPassword;
-	 private JComboBox<UserType> adminTypeComboBox; // 移动到类级别声明
+	 private static JComboBox<UserType> adminTypeComboBox; // 移动到类级别声明
 	/**
 	 * Launch the application.
 	 */
@@ -71,19 +73,22 @@ public class LoginFrame extends JFrame {
 
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel_1 = new JLabel("\u7528\u6237\u540D:");
+		JLabel lblNewLabel_1 = new JLabel("\u7528\u6237\u540D");
+		lblNewLabel_1.setIcon(new ImageIcon(LoginFrame.class.getResource("/images/\u7528\u6237.png")));
 		lblNewLabel_1.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		
 		JLabel lblNewLabel = new JLabel("\u73ED\u4E3B\u4EFB\u5DE5\u4F5C\u7BA1\u7406\u7CFB\u7EDF");
-		lblNewLabel.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel.setFont(new Font("新宋体", Font.PLAIN, 18));
 		
 		JLabel lblNewLabel_2 = new JLabel("\u5BC6\u7801:");
+		lblNewLabel_2.setIcon(new ImageIcon(LoginFrame.class.getResource("/images/\u5BC6\u7801.png")));
 		
 		adminName = new JTextField();
 		adminName.setColumns(10);
 		
 		adminPassword = new JPasswordField();
 		JButton btnNewButton_2 = new JButton("登录");
+		btnNewButton_2.setIcon(new ImageIcon(LoginFrame.class.getResource("/images/\u767B\u5F55.png")));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				loginAct(ae);
@@ -91,6 +96,7 @@ public class LoginFrame extends JFrame {
 			}
 		});
 		JButton btnNewButton_3 = new JButton("取消");
+		btnNewButton_3.setIcon(new ImageIcon(LoginFrame.class.getResource("/images/\u53D6\u6D88.png")));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -106,11 +112,11 @@ public class LoginFrame extends JFrame {
 		adminTypeComboBox.setModel(new DefaultComboBoxModel<>(new UserType[] {UserType.ADMIN,UserType.TEACHER}));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(138)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(157, Short.MAX_VALUE))
+					.addContainerGap(132, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -122,17 +128,17 @@ public class LoginFrame extends JFrame {
 							.addComponent(lblNewLabel_2)
 							.addComponent(lblNewLabel_3)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(adminPassword, Alignment.LEADING)
 							.addComponent(adminName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-								.addGap(28)))
-						.addComponent(adminTypeComboBox, 0, 131, Short.MAX_VALUE))
+								.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+								.addGap(11)))
+						.addComponent(adminTypeComboBox, 0, 137, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-					.addGap(79))
+					.addComponent(btnNewButton_3)
+					.addGap(62))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -146,7 +152,7 @@ public class LoginFrame extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
 						.addComponent(adminPassword, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_3)
 						.addComponent(adminTypeComboBox, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
@@ -198,6 +204,19 @@ if(UserType.ADMIN.equals(selectedItem)){
 //	"教师".equals(adminTypeComboBox.getName())
 }else if(UserType.TEACHER.equals(selectedItem)) {
 //	教师登录
+	Teacher teacher = null;
+	TeacherDao teacherDao = new TeacherDao();
+	Teacher teacherTmp = new Teacher();
+	teacherTmp.setUsername(username);
+	teacherTmp.setPassword(password);
+	 teacher=teacherDao.login(teacherTmp);
+	if(teacher == null) {
+		JOptionPane.showMessageDialog(this, "用户名或者密码错误");	
+		return;
+	}
+	JOptionPane.showMessageDialog(this, "欢迎登录");
+	this.dispose();
+	new MainFrm(selectedItem, teacher).setVisible(true);
 }
 
 	}

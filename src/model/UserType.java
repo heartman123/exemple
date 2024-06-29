@@ -2,7 +2,7 @@ package model;
 
 public enum UserType {
 ADMIN("用户管理员",0),
-TEACHER("教师",1);
+TEACHER("班主任",1);
 	
 	private String name;
 	private int index;
